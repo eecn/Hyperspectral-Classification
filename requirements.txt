@@ -9,3 +9,4 @@ scikit-image>=0.13.1
 torch>=0.4.0
 matplotlib>=2.0.2
 torchsummary>=1.5
+imageio
