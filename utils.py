@@ -9,6 +9,7 @@ import spectral
 import visdom
 import matplotlib.pyplot as plt
 from scipy import io, misc
+import imageio
 import os
 import re
 import torch
@@ -35,7 +36,7 @@ def open_file(dataset):
         return io.loadmat(dataset)
     elif ext == '.tif' or ext == '.tiff':
         # Load TIFF file
-        return misc.imread(dataset)
+        return imageio.imread(dataset)
     elif ext == '.hdr':
         img = spectral.open_image(dataset)
         return img.load()
