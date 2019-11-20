@@ -995,10 +995,12 @@ def train(net, optimizer, criterion, data_loader, epoch, scheduler=None,
             optimizer.zero_grad()
             if supervision == 'full':
                 output = net(data)
+                #target = target - 1
                 loss = criterion(output, target)
             elif supervision == 'semi':
                 outs = net(data)
                 output, rec = outs
+                #target = target - 1
                 loss = criterion[0](output, target) + net.aux_loss_weight * criterion[1](rec, data)
             else:
                 raise ValueError("supervision mode \"{}\" is unknown.".format(supervision))
@@ -1133,6 +1135,7 @@ def val(net, data_loader, device='cpu', supervision='full'):
                 outs = net(data)
                 output, rec = outs
             _, output = torch.max(output, dim=1)
+            #target = target - 1
             for out, pred in zip(output.view(-1), target.view(-1)):
                 if out.item() in ignored_labels:
                     continue
