@@ -301,6 +301,7 @@ def metrics(prediction, target, ignored_labels=[], n_classes=None):
     for l in ignored_labels:
         ignored_mask[target == l] = True
     ignored_mask = ~ignored_mask
+    #target = target[ignored_mask] -1
     target = target[ignored_mask]
     prediction = prediction[ignored_mask]
 
@@ -366,6 +367,7 @@ def show_results(results, vis, label_values=None, agregated=False):
                           'marginleft': 150,
                           'width': 500,
                           'height': 500,
+                          #'rownames': label_values[1:], 'columnnames': label_values[1:]})
                           'rownames': label_values, 'columnnames': label_values})
     text += "Confusion matrix :\n"
     text += str(cm)
