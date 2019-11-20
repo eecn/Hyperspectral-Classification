@@ -167,6 +167,7 @@ hyperparams = vars(args)
 img, gt, LABEL_VALUES, IGNORED_LABELS, RGB_BANDS, palette = get_dataset(DATASET,
                                                                FOLDER)
 # Number of classes
+# N_CLASSES = len(LABEL_VALUES) -  len(IGNORED_LABELS)
 N_CLASSES = len(LABEL_VALUES)
 # Number of bands (last dimension of the image tensor)
 N_BANDS = img.shape[-1]
