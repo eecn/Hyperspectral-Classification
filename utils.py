@@ -362,12 +362,12 @@ def show_results(results, vis, label_values=None, agregated=False):
         F1scores = results["F1 scores"]
         kappa = results["Kappa"]
 
+    #label_values = label_values[1:]
     vis.heatmap(cm, opts={'title': "Confusion matrix", 
                           'marginbottom': 150,
                           'marginleft': 150,
                           'width': 500,
                           'height': 500,
-                          #'rownames': label_values[1:], 'columnnames': label_values[1:]})
                           'rownames': label_values, 'columnnames': label_values})
     text += "Confusion matrix :\n"
     text += str(cm)
