@@ -71,8 +71,8 @@ parser.add_argument('--restore', type=str, default=None,
 
 # Dataset options
 group_dataset = parser.add_argument_group('Dataset')
-group_dataset.add_argument('--training_sample', type=float, default=10,
-                    help="Percentage of samples to use for training (default: 10%%)")
+group_dataset.add_argument('--training_sample', type=float, default=0.1,
+                    help="Percentage of samples to use for training (default: 10%)")
 group_dataset.add_argument('--sampling_mode', type=str, help="Sampling mode"
                     " (random sampling or disjoint, default: random)",
                     default='random')
