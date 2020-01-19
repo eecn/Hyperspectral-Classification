@@ -10,6 +10,7 @@ import torch.utils
 import torch.utils.data
 import os
 from tqdm import tqdm
+from sklearn import preprocessing
 try:
     # Python 3
     from urllib.request import urlretrieve
@@ -200,7 +201,11 @@ def get_dataset(dataset_name, target_folder="./", datasets=DATASETS_CONFIG):
     ignored_labels = list(set(ignored_labels))
     # Normalization
     img = np.asarray(img, dtype='float32')
-    img = (img - np.min(img)) / (np.max(img) - np.min(img))
+    #img = (img - np.min(img)) / (np.max(img) - np.min(img))
+    data = img.reshape(np.prod(img.shape[:2]), np.prod(img.shape[2:]))
+    #data = preprocessing.scale(data)
+    data  = preprocessing.minmax_scale(data)
+    img = data.reshape(img.shape)
     return img, gt, label_values, ignored_labels, rgb_bands, palette
 
 
