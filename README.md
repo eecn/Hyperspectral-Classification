@@ -2,17 +2,6 @@
 
 A Python tool to perform deep learning experiments on various hyperspectral datasets.
 
-<!-- ![http://www.onera.fr/en/dtim](https://lut.im/qwL8UPM0en/soXh7XtiPp4IoML8.png)
-![https://www-obelix.irisa.fr/](https://lut.im/D9OHdqk6rK/Mod6HUGCtwjY00Vk.png)
-![](https://lut.im/5UpsUhIzgE/Fa6XCquMRsnHwjHu.png)
--->
-![http://www.onera.fr/en/dtim](https://framapic.org/VgDCJuO6QDNx/UZaBtqqxbV2F.png)
-![https://www-obelix.irisa.fr/](https://framapic.org/khHGG0Mo6U3C/45Jl9MebT4XS.png)
-![](https://framapic.org/NI9GogSoovTl/IDhzTph7jMEr.png)
-
-![](https://framapic.org/KKjiExO3V0M9/MbDHG4YSTxRP.gif)
-
-![](https://framapic.org/PLHpoO2sYA18/bYYbY7t4xA8C.gif)
 
 ## Description
 The original code forked from GitLib project [Link](https://gitlab.inria.fr/naudeber/DeepHyperX).  
@@ -29,31 +18,6 @@ It is based on the [PyTorch](http://pytorch.org/) deep learning and GPU computin
 
 The easiest way to install this code is to create a [Python virtual environment](https://docs.python.org/3/tutorial/venv.html) and to install dependencies using:
 `pip install -r requirements.txt`
-
-### Docker
-
-Alternatively, it is possible to run the [Docker](https://www.docker.com/community-edition) image.
-
-Grab the image using:
-```
-docker pull registry.gitlab.inria.fr/naudeber/deephyperx:preview
-```
-
-And then run the image using:
-```
-docker run -p 9999:8097 -ti --rm -v `pwd`:/workspace/DeepHyperX/ registry.gitlab.inria.fr/naudeber/deephyperx:preview
-```
-
-This command:
-  * starts a Docker container using the image `registry.gitlab.inria.fr/naudeber/deephyperx:preview`
-  * starts an interactive shell session `-ti`
-  * mounts the current folder in the `/workspace/DeepHyperX/` path of the container
-  * binds the local port 9999 to the container port 8097 (for Visdom)
-  * removes the container `--rm` when the user has finished.
-
-All data and products are stored in the current folder.
-
-Users can build the Docker image locally using the `Dockerfile` using the command `docker build .`.
 
 ## Hyperspectral datasets
 
