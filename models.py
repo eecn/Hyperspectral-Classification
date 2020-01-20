@@ -1065,11 +1065,11 @@ def save_model(model, model_name, dataset_name, **kwargs):
      if not os.path.isdir(model_dir):
          os.makedirs(model_dir, exist_ok=True)
      if isinstance(model, torch.nn.Module):
-         filename = str('wk') + "_epoch{epoch}_{metric:.2f}".format(**kwargs)
+         filename = str('run') + "_epoch{epoch}_{metric:.2f}".format(**kwargs)
          tqdm.write("Saving neural network weights in {}".format(filename))
          torch.save(model.state_dict(), model_dir + filename + '.pth')
      else:
-         filename = str('wk')
+         filename = str('run')
          tqdm.write("Saving model params in {}".format(filename))
          joblib.dump(model, model_dir + filename + '.pkl')
 
