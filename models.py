@@ -1137,7 +1137,7 @@ def val(net, data_loader, device='cpu', supervision='full'):
                 output, rec = outs
             _, output = torch.max(output, dim=1)
             #target = target - 1
-            for out, pred in zip(output.view(-1), target.view(-1)):
+            for pred, out in zip(output.view(-1), target.view(-1)):
                 if out.item() in ignored_labels:
                     continue
                 else:
