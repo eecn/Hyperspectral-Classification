@@ -3,10 +3,10 @@
 A Python tool to perform deep learning experiments on various hyperspectral datasets.
 
 
-## Description
+## Note
 The original code forked from GitLib project [Link](https://gitlab.inria.fr/naudeber/DeepHyperX).  
 And there is a repository on GitHub, which maybe is the official project code. [DeepHyperX](https://github.com/nshaud/DeepHyperX)  
-This repository will also update in the feature for research exchange.
+This repository will not update in the feature.If you need continuous research, please go to the project DeepHyperX](https://github.com/nshaud/DeepHyperX)  
 
 ## Requirements
 
@@ -105,3 +105,31 @@ Examples:
   * `python main.py --model hamida --dataset PaviaU --training_sample 0.5 --patch_size 7 --epoch 50 --cuda 0` 
     This runs on GPU the 3D CNN from Hamida et al. on the Pavia University dataset with a patch size of 7, using 50% of the samples for training and optimizing for 50 epochs.
 
+
+
+## License information
+
+Code for the DeepHyperX toolbox is dual licensed depending on applications, research or commercial.
+
+---
+
+### COMMERCIAL PURPOSES
+
+Please contact the ONERA [www.onera.fr/en/contact-us](www.onera.fr/en/contact-us) for additional information or directly the authors Nicolas Audebert or Bertrand Le Saux.
+
+---
+
+### RESEARCH AND NON COMMERCIAL PURPOSES
+
+##### Code license
+
+For research and non commercial purposes, all the code and documentation is released under the GPLv3 license:
+
+Copyright (c) 2018 ONERA and IRISA, Nicolas Audebert, Bertrand Le Saux, Sébastien Lefèvre.
+
+This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or any later version. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+PLEASE ACKNOWLEDGE THE ORIGINAL AUTHORS AND PUBLICATION ACCORDING TO THE REPOSITORY github.com/nshaud/DeepHyperx OR IF NOT AVAILABLE:
+Nicolas Audebert, Bertrand Le Saux and Sébastien Lefèvre
+"Deep Learning for Classification of Hyperspectral Data: A comparative review",
+IEEE Geosciences and Remote Sensing Magazine, 2019.
