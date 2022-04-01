@@ -1124,6 +1124,7 @@ def test(net, img, hyperparams):
 
 def val(net, data_loader, device='cpu', supervision='full'):
 # TODO : fix me using metrics()
+    net.eval()
     accuracy, total = 0., 0.
     ignored_labels = data_loader.dataset.ignored_labels
     for batch_idx, (data, target) in enumerate(data_loader):
