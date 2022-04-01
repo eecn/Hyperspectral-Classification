@@ -244,7 +244,7 @@ class HyperX(torch.utils.data.Dataset):
             mask = np.ones_like(gt)
         x_pos, y_pos = np.nonzero(mask)
         p = self.patch_size // 2
-        self.indices = np.array([(x,y) for x,y in zip(x_pos, y_pos) if x > p and x < data.shape[0] - p and y > p and y < data.shape[1] - p])
+        self.indices = np.array([(x,y) for x,y in zip(x_pos, y_pos) if x => p and x < data.shape[0] - p and y => p and y < data.shape[1] - p])
         self.labels = [self.label[x,y] for x,y in self.indices]
         np.random.shuffle(self.indices)
 
