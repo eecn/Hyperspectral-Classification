@@ -49,7 +49,7 @@ At this time, the tool automatically downloads the following public datasets:
   * Indian Pines
   * Botswana
 
-The [Data Fusion Contest 2018 hyperspectral dataset]() is also preconfigured, although users need to download it on the [DASE](http://dase.ticinumaerospace.com/) website and store it in the dataset folder under `DFC2018_HSI`.
+The [Data Fusion Contest 2018 hyperspectral dataset]() is also preconfigured, although users need to download it on the [HSIAL](https://hyperspectral.ee.uh.edu/?page_id=1075) website and store it in the dataset folder under `DFC2018_HSI`.
 
 An example dataset folder has the following structure:
 ```
