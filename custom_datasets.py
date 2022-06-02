@@ -40,4 +40,5 @@ def dfc2018_loader(folder):
                         "Trains",
                         "Stadium seats"]
         ignored_labels = [0]
+        palette = None
         return img, gt, rgb_bands, ignored_labels, label_values, palette
