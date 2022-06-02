@@ -49,7 +49,9 @@ At this time, the tool automatically downloads the following public datasets:
   * Indian Pines
   * Botswana
 
-The [Data Fusion Contest 2018 hyperspectral dataset]() is also preconfigured, although users need to download it on the [HSIAL](https://hyperspectral.ee.uh.edu/?page_id=1075) website and store it in the dataset folder under `DFC2018_HSI`.
+~~The `Data Fusion Contest 2018 hyperspectral dataset` is also preconfigured, although users need to download it on the [HSIAL](https://hyperspectral.ee.uh.edu/?page_id=1075) website and store it in the dataset folder under `DFC2018_HSI`.~~
+
+The original Data Fusion Contest 2018 hyperspectral dataset(DFC2018_HSI) cannot be obtained now, you can try new IGRSS Data  or email me to get the original data.
 
 An example dataset folder has the following structure:
 ```
@@ -60,7 +62,6 @@ Datasets
 ├── DFC2018_HSI
 │   ├── 2018_IEEE_GRSS_DFC_GT_TR.tif
 │   ├── 2018_IEEE_GRSS_DFC_HSI_TR
-│   ├── 2018_IEEE_GRSS_DFC_HSI_TR.aux.xml
 │   ├── 2018_IEEE_GRSS_DFC_HSI_TR.HDR
 ├── IndianPines
 │   ├── Indian_pines_corrected.mat
@@ -75,7 +76,6 @@ Datasets
     ├── PaviaU_gt.mat
     └── PaviaU.mat
 ```
-
 ### Adding a new dataset
 
 Adding a custom dataset can be done by modifying the `custom_datasets.py` file. Developers should add a new entry to the `CUSTOM_DATASETS_CONFIG` variable and define a specific data loader for their use case.
