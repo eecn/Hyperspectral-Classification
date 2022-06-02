@@ -51,7 +51,9 @@ At this time, the tool automatically downloads the following public datasets:
 
 ~~The `Data Fusion Contest 2018 hyperspectral dataset` is also preconfigured, although users need to download it on the [HSIAL](https://hyperspectral.ee.uh.edu/?page_id=1075) website and store it in the dataset folder under `DFC2018_HSI`.~~
 
-The original Data Fusion Contest 2018 hyperspectral dataset(DFC2018_HSI) cannot be obtained now, you can try new IGRSS Data  or email me to get the original data.
+The original Data Fusion Contest 2018 hyperspectral dataset(DFC2018_HSI) cannot be obtained now, you can try new IGRSS Data  or email me to get the original data.(For research and non commercial purposes,do not spread randomly)
+> In report [HSIAL](https://hyperspectral.ee.uh.edu/?page_id=1075) there is a  statement :  
+If you wish to use the data, please be sure to [email us](sprasad2@uh.edu) and provide your Name, Contact information, affiliation (University, research lab etc.), and an acknowledgement that you will cite this dataset and its source appropriately, as well as provide an acknowledgement to the IEEE GRSS IADF and the Hyperspectral Image Analysis Lab at the University of Houston, in any manuscript(s) resulting from it.
 
 An example dataset folder has the following structure:
 ```
