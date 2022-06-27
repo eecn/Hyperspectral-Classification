@@ -22,6 +22,7 @@ def get_device(ordinal):
     elif torch.cuda.is_available():
         print("Computation on CUDA GPU device {}".format(ordinal))
         device = torch.device('cuda:{}'.format(ordinal))
+        print("CUDA device: {}".format(torch.cuda.get_device_name(ordinal)))
     else:
         print("/!\\ CUDA was requested but is not available! Computation will go on CPU. /!\\")
         device = torch.device('cpu')
