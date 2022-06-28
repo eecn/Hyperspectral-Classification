@@ -65,6 +65,14 @@ def get_model(name, **kwargs):
         lr = kwargs.setdefault('learning_rate', 0.001)
         optimizer = optim.Adam(model.parameters(), lr=lr)
         criterion = nn.CrossEntropyLoss(weight=kwargs['weights'])
+    elif name == 'miniproject4':
+        kwargs.setdefault('epoch', 200)
+        patch_size = kwargs.setdefault('patch_size', 5)
+        center_pixel = True
+        model = MiniProject4(n_bands, n_classes, patch_size=patch_size)
+        lr = kwargs.setdefault('learning_rate', 0.001)
+        optimizer = optim.Adam(model.parameters(), lr=lr)
+        criterion = nn.CrossEntropyLoss(weight=kwargs['weights'])
     elif name == 'chen':
         patch_size = kwargs.setdefault('patch_size', 27)
         center_pixel = True
@@ -355,78 +363,70 @@ class HamidaEtAl(nn.Module):
 
 class MiniProject4(nn.Module):
     """
-    Mini Project 4 NTUT
+    MINI Project4
     """
     @staticmethod
     def weight_init(m):
         if isinstance(m, nn.Linear) or isinstance(m, nn.Conv3d):
-            init.kaiming_normal_(m.weight)
+            init.kaiming_uniform_(m.weight)
             init.zeros_(m.bias)
 
-    def __init__(self, input_channels, n_classes, patch_size=5, dilation=1):
+    def __init__(self, in_channels, n_classes, patch_size=7):
         super(MiniProject4, self).__init__()
-        # The first layer is a (3,3,3) kernel sized Conv characterized
-        # by a stride equal to 1 and number of neurons equal to 20
+        self.in_channels = in_channels
+        self.n_classes = n_classes
         self.patch_size = patch_size
-        self.input_channels = input_channels
-        dilation = (dilation, 1, 1)
 
-        if patch_size == 3:
-            self.conv1 = nn.Conv3d(
-                1, 20, (3, 3, 3), stride=(1, 1, 1), dilation=dilation, padding=1)
-        else:
-            self.conv1 = nn.Conv3d(
-                1, 20, (3, 3, 3), stride=(1, 1, 1), dilation=dilation, padding=0)
-        # Next pooling is applied using a layer identical to the previous one
-        # with the difference of a 1D kernel size (1,1,3) and a larger stride
-        # equal to 2 in order to reduce the spectral dimension
-        self.pool1 = nn.Conv3d(
-            20, 20, (3, 1, 1), dilation=dilation, stride=(2, 1, 1), padding=(1, 0, 0))
-        # Then, a duplicate of the first and second layers is created with
-        # 35 hidden neurons per layer.
-        self.conv2 = nn.Conv3d(
-            20, 35, (3, 3, 3), dilation=dilation, stride=(1, 1, 1), padding=(1, 0, 0))
-        self.pool2 = nn.Conv3d(
-            35, 35, (3, 1, 1), dilation=dilation, stride=(2, 1, 1), padding=(1, 0, 0))
-        # Finally, the 1D spatial dimension is progressively reduced
-        # thanks to the use of two Conv layers, 35 neurons each,
-        # with respective kernel sizes of (1,1,3) and (1,1,2) and strides
-        # respectively equal to (1,1,1) and (1,1,2)
-        self.conv3 = nn.Conv3d(
-            35, 35, (3, 1, 1), dilation=dilation, stride=(1, 1, 1), padding=(1, 0, 0))
-        self.conv4 = nn.Conv3d(
-            35, 35, (2, 1, 1), dilation=dilation, stride=(2, 1, 1), padding=(1, 0, 0))
+        self.conv_3x3 = nn.Conv3d(
+            1, 128, (in_channels, 3, 3), stride=(1, 1, 1), padding=(0, 1, 1))
+        self.conv_1x1 = nn.Conv3d(
+            1, 128, (in_channels, 1, 1), stride=(1, 1, 1), padding=0)
 
-        #self.dropout = nn.Dropout(p=0.5)
-
+        self.conv1 = nn.Conv2d(256, 128, (1, 1))
+        self.conv2 = nn.Conv2d(128, 64, (1, 1))
+        self.pool = nn.MaxPool2d((2, 2))
+        
         self.features_size = self._get_final_flattened_size()
-        # The architecture ends with a fully connected layer where the number
-        # of neurons is equal to the number of input classes.
-        self.fc = nn.Linear(self.features_size, n_classes)
+
+        self.fc1 = nn.Linear(self.features_size, 128)
+        self.fc2 = nn.Linear(128, 64)
+        self.fc3 = nn.Linear(64, n_classes)
+
+        # The 7 th and 8 th convolutional layers have dropout in training
+        self.dropout = nn.Dropout(p=0.5)
 
         self.apply(self.weight_init)
 
     def _get_final_flattened_size(self):
         with torch.no_grad():
-            x = torch.zeros((1, 1, self.input_channels,
-                             self.patch_size, self.patch_size))
-            x = self.pool1(self.conv1(x))
-            x = self.pool2(self.conv2(x))
-            x = self.conv3(x)
-            x = self.conv4(x)
-            _, t, c, w, h = x.size()
-        return t * c * w * h
+            x = torch.zeros((1, 1, self.in_channels, self.patch_size, self.patch_size))
+            x_3x3 = self.conv_3x3(x)
+            x_1x1 = self.conv_1x1(x)
+            x = torch.cat([x_3x3, x_1x1], dim=1)
+            x = torch.squeeze(x, dim=2)
+            x = self.pool(self.conv1(x))
+            x = self.pool(self.conv2(x))
+            
+            _, c, w, h = x.size()
+        return c * w * h
 
     def forward(self, x):
-        x = F.relu(self.conv1(x))
-        x = self.pool1(x)
-        x = F.relu(self.conv2(x))
-        x = self.pool2(x)
-        x = F.relu(self.conv3(x))
-        x = F.relu(self.conv4(x))
+        x_3x3 = self.conv_3x3(x)
+        x_1x1 = self.conv_1x1(x)
+        x = torch.cat([x_3x3, x_1x1], dim=1)
+        # Remove the third dimension of the tensor
+        x = torch.squeeze(x, dim=2)
+
+        x = F.relu(self.pool(self.conv1(x)))
+        x = F.relu(self.pool(self.conv2(x)))
+
         x = x.view(-1, self.features_size)
-        #x = self.dropout(x)
-        x = self.fc(x)
+
+        x = F.relu(self.fc1(x))
+        x = self.dropout(x)
+        x = F.relu(self.fc2(x))
+        x = self.dropout(x)
+        x = self.fc3(x)
         return x
 
 
